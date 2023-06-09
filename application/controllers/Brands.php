@@ -65,39 +65,6 @@ class Brands extends Admin_Controller
 
 		echo json_encode($result);
 	}
-	//new commit 
-
-	public function fetchBrandDataFromDB()
-	{
-		$result = array('data' => array());
-
-		$data = $this->model_brands->getBrandData();
-		foreach ($data as $key => $value) {
-
-			// button
-			$buttons = '';
-
-			if(in_array('viewBrand', $this->permission)) {
-				$buttons .= '<button type="button" class="btn btn-default" onclick="editBrand('.$value['id'].')" data-toggle="modal" data-target="#editBrandModal"><i class="fa fa-pencil"></i></button>';	
-			}
-			
-			if(in_array('deleteBrand', $this->permission)) {
-				$buttons .= ' <button type="button" class="btn btn-default" onclick="removeBrand('.$value['id'].')" data-toggle="modal" data-target="#removeBrandModal"><i class="fa fa-trash"></i></button>
-				';
-			}				
-
-			$status = ($value['active'] == 1) ? '<span class="label label-success">Active</span>' : '<span class="label label-warning">Inactive</span>';
-
-			$result['data'][$key] = array(
-				$value['name'],
-				$status,
-				$buttons
-			);
-		} // /foreach
-
-		echo json_encode($result);
-	}
-
 	/*
 	* It checks if it gets the brand id and retreives
 	* the brand information from the brand model and 
